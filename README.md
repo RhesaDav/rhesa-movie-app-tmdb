@@ -1,47 +1,45 @@
-# Getting Started with Create React App
+# Movie App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application allows users to search for movies, view movie information, and browse movies by specific categories.
 
-## Available Scripts
+## Live Application
 
-In the project directory, you can run:
+The live version of the application can be accessed at [https://rhesa-movie-app-tmdb.vercel.app/](https://rhesa-movie-app-tmdb.vercel.app/). Feel free to visit the link and explore the Movie App.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Make sure you have Node.js installed on your computer.
+2. Clone this repository using the command: `git clone https://github.com/username/movie-app-repo.git`
+3. Navigate to the project directory: `cd movie-app-repo`
+4. Install all dependencies by running the command: `npm install`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Running the Application
 
-### `npm test`
+1. Run the command: `npm start` to start the application in development mode.
+2. Open your browser and visit `http://localhost:3000` to see the Movie App.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+1. On the homepage, you can see a list of popular movies, top-rated movies, upcoming movies, and now playing movies.
+2. You can search for movies by entering the movie title in the search box.
+3. Click on a movie poster to view more information about the movie.
+4. On the movie detail page, you can see details about the movie such as synopsis, release date, genre, etc.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running Tests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This application uses the Jest testing framework to run tests. To run the tests, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Make sure you are in the project directory.
+2. Run the command: `npm test` to run all the tests.
+3. You will see the test results in the console.
 
-### `npm run eject`
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Contributions are always welcome! If you would like to contribute to this project, please follow these steps:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# rhesa-movie-app-tmdb
+1. Fork this repository.
+2. Create a new branch: `git checkout -b new-feature`.
+3. Make the necessary changes.
+4. Commit your changes: `git commit -m "Add new feature"`.
+5. Push to the branch: `git push origin new-feature`.
+6. Submit a pull request to this repository.
