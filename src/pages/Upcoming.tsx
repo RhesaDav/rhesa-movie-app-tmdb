@@ -7,11 +7,14 @@ import { Movies } from "../models/Movies";
 
 const UpcomingPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, refetch } = useGetUpcomingMovies(currentPage);
+  const {
+    data,
+    isLoading,
+    refetch,
+    isError: movieError,
+  } = useGetUpcomingMovies(currentPage);
   const { data: genres } = useGetGenres();
-  const [movies, setMovies] = useState<Movies["results"]>(
-    data?.data.results ?? []
-  );
+  const [movies, setMovies] = useState<Movies["results"]>(data?.results ?? []);
 
   const loadNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -26,38 +29,31 @@ const UpcomingPage: React.FC = () => {
   }, [currentPage, refetch]);
 
   React.useEffect(() => {
-    setMovies(data?.data.results ?? []);
+    setMovies(data?.results ?? []);
   }, [data]);
 
   return (
     <Fragment>
       <h1 className="text-3xl font-bold mb-4">Upcoming Movies</h1>
       <MovieSearch />
-      {isLoading ? (
-        <div className="flex items-center justify-center h-full">
-          <p className="text-gray-600">Loading...</p>
-        </div>
-      ) : movies.length > 0 ? (
-        <>
-          <Pagination
-            totalPages={data?.data.total_pages || 0}
-            currentPage={currentPage}
-            loadNextPage={loadNextPage}
-            loadPrevPage={loadPrevPage}
-          />
-          <MovieList genre={genres?.data.genres || []} movies={movies} />
-          <Pagination
-            totalPages={data?.data.total_pages || 0}
-            currentPage={currentPage}
-            loadNextPage={loadNextPage}
-            loadPrevPage={loadPrevPage}
-          />
-        </>
-      ) : (
-        <div className="flex items-center justify-center h-full">
-          <p className="text-gray-600">No movies found.</p>
-        </div>
-      )}
+      <Pagination
+        totalPages={data?.total_pages || 0}
+        currentPage={currentPage}
+        loadNextPage={loadNextPage}
+        loadPrevPage={loadPrevPage}
+      />
+      <MovieList
+        genre={genres?.genres || []}
+        movies={movies}
+        error={!!movieError}
+        loading={isLoading}
+      />{" "}
+      <Pagination
+        totalPages={data?.total_pages || 0}
+        currentPage={currentPage}
+        loadNextPage={loadNextPage}
+        loadPrevPage={loadPrevPage}
+      />
     </Fragment>
   );
 };

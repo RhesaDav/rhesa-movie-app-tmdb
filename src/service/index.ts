@@ -175,7 +175,7 @@ export const useSearchMovies = (
   year?: string,
   page?: number
 ) => {
-  return useQuery<AxiosResponse<Movies>, Error>("searchMovies", async () => {
+  return useQuery<Movies, Error>("searchMovies", async () => {
     const params: any = {
       query: encodeURIComponent(title),
     };
@@ -201,14 +201,14 @@ export const useSearchMovies = (
 };
 
 export const useGetGenres = () => {
-  return useQuery<AxiosResponse<Genre>, Error>("getGenres", async () => {
+  return useQuery<Genre, Error>("getGenres", async () => {
     const response = await axiosInstance.get("/genre/movie/list");
     return response.data;
   });
 };
 
 export const useGetPopularMovies = (page = 1) => {
-  return useQuery<AxiosResponse<Movies>, Error>(
+  return useQuery<Movies, Error>(
     "getPopularMovies",
     async () => {
       const response = await axiosInstance.get("/movie/popular", {
@@ -224,7 +224,7 @@ export const useGetPopularMovies = (page = 1) => {
 };
 
 export const useGetTopRatedMovies = (page = 1) => {
-  return useQuery<AxiosResponse<Movies>, Error>(
+  return useQuery<Movies, Error>(
     "getTopRatedMovies",
     async () => {
       const response = await axiosInstance.get("/movie/top_rated", {
@@ -240,7 +240,7 @@ export const useGetTopRatedMovies = (page = 1) => {
 };
 
 export const useGetUpcomingMovies = (page = 1) => {
-  return useQuery<AxiosResponse<Movies>, Error>(
+  return useQuery<Movies, Error>(
     "getUpcomingMovies",
     async () => {
       const response = await axiosInstance.get("/movie/upcoming", {
@@ -256,7 +256,7 @@ export const useGetUpcomingMovies = (page = 1) => {
 };
 
 export const useGetTrendingMovies = (page = 1) => {
-  return useQuery<AxiosResponse<Movies>, Error>(
+  return useQuery<Movies, Error>(
     "getTrendingMovies",
     async () => {
       const response = await axiosInstance.get(
@@ -275,7 +275,7 @@ export const useGetTrendingMovies = (page = 1) => {
 };
 
 export const useGetNowPlayingMovies = (page = 1) => {
-  return useQuery<AxiosResponse<Movies>, Error>(
+  return useQuery<Movies, Error>(
     "getNowPlayingMovies",
     async () => {
       const response = await axiosInstance.get("/movie/now_playing", {
@@ -291,7 +291,7 @@ export const useGetNowPlayingMovies = (page = 1) => {
 };
 
 export const useGetMovieDetails = (movieId: number) => {
-  return useQuery<AxiosResponse<Detail>, Error>("getMovieDetails", async () => {
+  return useQuery<Detail, Error>("getMovieDetails", async () => {
     const url = `/movie/${movieId}?language=en-US`;
     const response = await axiosInstance.get(url);
 

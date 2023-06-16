@@ -6,9 +6,27 @@ import MovieCard from './MovieCard';
 interface MovieListProps {
   movies: Movies['results'];
   genre: Genre['genres'];
+  loading?: boolean;
+  error?: boolean;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ movies, genre }) => {
+const MovieList: React.FC<MovieListProps> = ({ movies, genre, loading, error }) => {
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-gray-600">Loading movies...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-red-600">Error fetching movies. Please try again later.</p>
+      </div>
+    );
+  }
+
   if (movies.length === 0) {
     return (
       <div className="flex items-center justify-center h-full">
