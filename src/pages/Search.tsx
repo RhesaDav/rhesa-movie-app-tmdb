@@ -1,31 +1,27 @@
 import React, { Fragment, useState } from "react";
-import { useQuery } from "react-query";
-import {
-  getGenres,
-  searchMovies,
-} from "../service";
+import { useGetGenres, useSearchMovies } from "../service";
 import MovieList from "../components/MovieList";
 import MovieSearch from "../components/common/Searchbar";
 import Pagination from "../components/common/Pagination";
 import { useLocation } from "react-router-dom";
+import { Movies } from "../models/Movies";
 
 const SearchPage: React.FC = () => {
-    const location = useLocation();
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const title = searchParams.get("title") || '';
-  const year = searchParams.get("year") || '2023';
-  const includeAdult = searchParams.get("includeAdult") || 'no';
+  const title = searchParams.get("title") || "";
+  const year = searchParams.get("year") || "2023";
+  const includeAdult = searchParams.get("includeAdult") || "no";
 
-    // console.log(searchParams, title, year)
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data,
-    isLoading,
-    refetch,
-  } = useQuery(["popularMovies", currentPage],() => searchMovies(title,includeAdult,year,currentPage)
+  const { data, isLoading, refetch } = useSearchMovies(
+    title,
+    includeAdult,
+    year,
+    currentPage
   );
-  const { data: genres } = useQuery("movieGenres", getGenres);
-  const [movies, setMovies] = useState<any[]>(  
+  const { data: genres } = useGetGenres();
+  const [movies, setMovies] = useState<Movies["results"]>(
     data?.data.results ?? []
   );
 
@@ -51,14 +47,27 @@ const SearchPage: React.FC = () => {
       <MovieSearch />
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
-        <p className="text-gray-600">Loading...</p>
-      </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
       ) : movies.length > 0 ? (
         <>
-          <Pagination totalPages={data?.data.total_pages || 0} currentPage={currentPage} loadNextPage={loadNextPage} loadPrevPage={loadPrevPage}/>
-          <h1 className="text-gray-700 font-extrabold text-2xl my-2">Looking movie "{title}" at year {year} {includeAdult === "yes" ? "and include adult" : ""}</h1>
+          <Pagination
+            totalPages={data?.data.total_pages || 0}
+            currentPage={currentPage}
+            loadNextPage={loadNextPage}
+            loadPrevPage={loadPrevPage}
+          />
+          <h1 className="text-gray-700 font-extrabold text-2xl my-2">
+            Looking movie "{title}" at year {year}{" "}
+            {includeAdult === "yes" ? "and include adult" : ""}
+          </h1>
           <MovieList genre={genres?.data.genres || []} movies={movies} />
-          <Pagination totalPages={data?.data.total_pages || 0} currentPage={currentPage} loadNextPage={loadNextPage} loadPrevPage={loadPrevPage}/>
+          <Pagination
+            totalPages={data?.data.total_pages || 0}
+            currentPage={currentPage}
+            loadNextPage={loadNextPage}
+            loadPrevPage={loadPrevPage}
+          />
         </>
       ) : (
         <div className="flex items-center justify-center h-full">

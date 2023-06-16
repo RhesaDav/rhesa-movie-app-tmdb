@@ -1,23 +1,15 @@
 import React, { Fragment, useState } from "react";
-import { useQuery } from "react-query";
-import {
-  getGenres,
-  getUpcomingMovies,
-} from "../service";
+import { useGetGenres, useGetUpcomingMovies } from "../service";
 import MovieList from "../components/MovieList";
 import MovieSearch from "../components/common/Searchbar";
 import Pagination from "../components/common/Pagination";
+import { Movies } from "../models/Movies";
 
 const UpcomingPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data,
-    isLoading,
-    refetch,
-  } = useQuery(["popularMovies", currentPage],() => getUpcomingMovies(currentPage)
-  );
-  const { data: genres } = useQuery("movieGenres", getGenres);
-  const [movies, setMovies] = useState<any[]>(
+  const { data, isLoading, refetch } = useGetUpcomingMovies(currentPage);
+  const { data: genres } = useGetGenres();
+  const [movies, setMovies] = useState<Movies["results"]>(
     data?.data.results ?? []
   );
 
@@ -43,13 +35,23 @@ const UpcomingPage: React.FC = () => {
       <MovieSearch />
       {isLoading ? (
         <div className="flex items-center justify-center h-full">
-        <p className="text-gray-600">Loading...</p>
-      </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
       ) : movies.length > 0 ? (
         <>
-          <Pagination totalPages={data?.data.total_pages || 0} currentPage={currentPage} loadNextPage={loadNextPage} loadPrevPage={loadPrevPage}/>
+          <Pagination
+            totalPages={data?.data.total_pages || 0}
+            currentPage={currentPage}
+            loadNextPage={loadNextPage}
+            loadPrevPage={loadPrevPage}
+          />
           <MovieList genre={genres?.data.genres || []} movies={movies} />
-          <Pagination totalPages={data?.data.total_pages || 0} currentPage={currentPage} loadNextPage={loadNextPage} loadPrevPage={loadPrevPage}/>
+          <Pagination
+            totalPages={data?.data.total_pages || 0}
+            currentPage={currentPage}
+            loadNextPage={loadNextPage}
+            loadPrevPage={loadPrevPage}
+          />
         </>
       ) : (
         <div className="flex items-center justify-center h-full">

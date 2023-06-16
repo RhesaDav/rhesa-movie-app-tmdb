@@ -1,11 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { getMovieDetails } from '../service';
+import { useGetMovieDetails } from '../service';
 
 const DetailsPage: React.FC = () => {
   const { id } = useParams<string>();
-  const { data: movie, isLoading } = useQuery(['movieDetails', id], () => getMovieDetails(Number(id)));
+  const { data: movie, isLoading } = useGetMovieDetails(Number(id))
 
   if (isLoading) {
     return <div>Loading...</div>;
