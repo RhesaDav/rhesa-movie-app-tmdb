@@ -1,7 +1,11 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
-const Layout: React.FC = () => {
+interface Props {
+  children?: React.ReactNode
+}
+
+const Layout: React.FC<Props> = ({children}) => {
   return (
     <div className="min-h-screen bg-gray-200">
       <div className="flex flex-col min-h-screen">
@@ -37,7 +41,7 @@ const Layout: React.FC = () => {
         </header>
 
         <main className="flex-grow container mx-auto px-4 py-8">
-          <Outlet/>
+          {children}
         </main>
 
         <footer className="bg-gray-800 py-4">

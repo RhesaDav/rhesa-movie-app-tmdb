@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { Movies } from "../models/Movies";
 import { Genre } from "../models/Genre";
 import { axiosInstance } from "../api/axiosInstance";
@@ -44,86 +43,71 @@ export const useGetGenres = () => {
 };
 
 export const useGetPopularMovies = (page = 1) => {
-  return useQuery<Movies, Error>(
-    "getPopularMovies",
-    async () => {
-      const response = await axiosInstance.get("/movie/popular", {
-        params: {
-          language: "en-US",
-          page: page,
-        },
-      });
+  return useQuery<Movies, Error>("getPopularMovies", async () => {
+    const response = await axiosInstance.get("/movie/popular", {
+      params: {
+        language: "en-US",
+        page: page,
+      },
+    });
 
-      return response.data;
-    }
-  );
+    return response.data;
+  });
 };
 
 export const useGetTopRatedMovies = (page = 1) => {
-  return useQuery<Movies, Error>(
-    "getTopRatedMovies",
-    async () => {
-      const response = await axiosInstance.get("/movie/top_rated", {
-        params: {
-          language: "en-US",
-          page: page,
-        },
-      });
+  return useQuery<Movies, Error>("getTopRatedMovies", async () => {
+    const response = await axiosInstance.get("/movie/top_rated", {
+      params: {
+        language: "en-US",
+        page: page,
+      },
+    });
 
-      return response.data;
-    }
-  );
+    return response.data;
+  });
 };
 
 export const useGetUpcomingMovies = (page = 1) => {
-  return useQuery<Movies, Error>(
-    "getUpcomingMovies",
-    async () => {
-      const response = await axiosInstance.get("/movie/upcoming", {
-        params: {
-          language: "en-US",
-          page: page,
-        },
-      });
+  return useQuery<Movies, Error>("getUpcomingMovies", async () => {
+    const response = await axiosInstance.get("/movie/upcoming", {
+      params: {
+        language: "en-US",
+        page: page,
+      },
+    });
 
-      return response.data;
-    }
-  );
+    return response.data;
+  });
 };
 
 export const useGetTrendingMovies = (page = 1) => {
-  return useQuery<Movies, Error>(
-    "getTrendingMovies",
-    async () => {
-      const response = await axiosInstance.get(
-        "/trending/movie/day?language=en-US",
-        {
-          params: {
-            language: "en-US",
-            page: page,
-          },
-        }
-      );
-
-      return response.data;
-    }
-  );
-};
-
-export const useGetNowPlayingMovies = (page = 1) => {
-  return useQuery<Movies, Error>(
-    "getNowPlayingMovies",
-    async () => {
-      const response = await axiosInstance.get("/movie/now_playing", {
+  return useQuery<Movies, Error>("getTrendingMovies", async () => {
+    const response = await axiosInstance.get(
+      "/trending/movie/day?language=en-US",
+      {
         params: {
           language: "en-US",
           page: page,
         },
-      });
+      }
+    );
 
-      return response.data;
-    }
-  );
+    return response.data;
+  });
+};
+
+export const useGetNowPlayingMovies = (page = 1) => {
+  return useQuery<Movies, Error>("getNowPlayingMovies", async () => {
+    const response = await axiosInstance.get("/movie/now_playing", {
+      params: {
+        language: "en-US",
+        page: page,
+      },
+    });
+
+    return response.data;
+  });
 };
 
 export const useGetMovieDetails = (movieId: number) => {
